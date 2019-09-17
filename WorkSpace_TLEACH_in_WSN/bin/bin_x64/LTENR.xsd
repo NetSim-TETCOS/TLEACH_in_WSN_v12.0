@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LTENR"
+    elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:include schemaLocation="NetSim_Common_type.xsd"/>
+  
+  <xs:attributeGroup name="LTE_NR_PROPERTY">
+    <xs:attribute name="TYPE">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="UE"/>
+          <xs:enumeration value="GNB"/>
+          <xs:enumeration value="EPC"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="PDCP_HEADER_COMPRESSION" type="BOOL"/>
+    <xs:attribute name="PDCP_DISCARD_DELAY_TIMER">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:enumeration value="50"/>
+          <xs:enumeration value="150"/>
+          <xs:enumeration value="300"/>
+          <xs:enumeration value="500"/>
+          <xs:enumeration value="750"/>
+          <xs:enumeration value="1500"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="PDCP_OUT_OF_ORDER_DELIVERY" type="BOOL"/>
+    <xs:attribute name="PDCP_TREORDERING_DELAY_TIMER" type="xs:double"/>
+
+    <!-- LTENR-RLC Property -->
+    <xs:attribute name="RLC_MAX_RETX_THRESHOLD" type="xs:string"/>
+    <xs:attribute name="RLC_POLL_PDU" type="xs:string"/>
+    <xs:attribute name="RLC_POLL_BYTE" type="xs:string"/>
+    <xs:attribute name="RLC_T_POLL_RETRANSMIT" type="xs:string"/>
+    <xs:attribute name="RLC_T_REASSEMBLY" type="xs:string"/>
+    <xs:attribute name="RLC_T_STATUS_PROHIBIT" type="xs:string"/>
+    
+    <!--LTENR-PHY Property-->
+    <xs:attribute name="FREQUENCY_RANGE">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FR1"/>
+          <xs:enumeration value="FR2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="DUPLEX_MODE" type="xs:string" fixed="TDD"/>
+    <xs:attribute name="OPERATING_BAND" type="xs:string" use="optional"/>
+    <xs:attribute name="Flow_MHz" type="xs:unsignedInt" use="optional"/>
+    <xs:attribute name="Fhigh_MHz" type="xs:unsignedInt" use="optional"/>
+    <xs:attribute name="CHANNELBANDWIDTH_MHz" type="xs:double" use="optional"/>
+    <xs:attribute name="GUARDBAND_kHz" type="xs:double" use="optional"/>
+    
+    <xs:attribute name="FRAMEDURATION_MS" type="xs:unsignedByte" fixed="10"/>
+    <xs:attribute name="SUBFRAMEDURATION_MS" type="xs:unsignedByte" fixed="1"/>
+    <xs:attribute name="NUMSUBCARRIERPERPRB" type="xs:unsignedByte" fixed="12"/>
+    <xs:attribute name="MU" type="xs:unsignedByte"/>
+    <xs:attribute name="SUBCARRIERSPACING">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[k][H][z][0-9]{1,9}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="CYCLICPREFIX">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NORMAL"/>
+          <xs:enumeration value="EXTENDED"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="SYMBOLPERSLOT" type="xs:unsignedByte"/>
+    <xs:attribute name="SLOTPERFRAME" type="xs:unsignedShort"/>
+    <xs:attribute name="SLOTPERSUBFRAME" type="xs:unsignedByte"/>
+    <xs:attribute name="PRBBANDWIDTH">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[k][H][z][0-9]{1,9}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="SLOTDURATION_US" type="xs:double" use="optional"/>
+    <xs:attribute name="SYMBOLDURATION_US" type="xs:double" use="optional"/>
+    <xs:attribute name="PRBCOUNT" type="xs:unsignedInt" use="optional"/>
+    <xs:attribute name="UPLINK_MIMO_LAYER_COUNT" type="xs:unsignedByte" use="optional"/>
+    <xs:attribute name="DOWNLINK_MIMO_LAYER_COUNT" type="xs:unsignedByte" use="optional"/>
+    <xs:attribute name="GNB_HEIGHT" type="xs:double" use="optional"/>
+    <xs:attribute name="UE_HEIGHT" type="xs:double" use="optional"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="LTENR_PDSCH_CONFIG">
+    <xs:attribute name="MCS_TABLE" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="QAM256"/>
+          <xs:enumeration value="QAM64"/>
+          <xs:enumeration value="QAM64LOWSE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="XOVERHEAD" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="XOH0"/>
+          <xs:enumeration value="XOH6"/>
+          <xs:enumeration value="XOH12"/>
+          <xs:enumeration value="XOH18"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="LTENR_PUSCH_CONFIG">
+    <xs:attribute name="MCS_TABLE" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="QAM256"/>
+          <xs:enumeration value="QAM64"/>
+          <xs:enumeration value="QAM64LOWSE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="TRANSFORM_PRECODING" type="TwoOption"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="LTENR_PROPAGATION_MODEL">
+    <xs:attribute name="OUTDOOR_SCENARIO" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="RURAL_MACRO"/>
+          <xs:enumeration value="URBAN_MACRO"/>
+          <xs:enumeration value="URBAN_MICRO"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="INDOOR_SCENARIO" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="INDOOR_OFFICE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="INDOOR_OFFICE_TYPE" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MIXED_OFFICE"/>
+          <xs:enumeration value="OPEN_OFFICE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="BUILDINGS_HEIGHT" type="xs:double"/>
+    <xs:attribute name="STREET_WIDTH" type="xs:double"/>
+    <xs:attribute name="O2I_MODEL" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="LOW_LOSS_MODEL"/>
+          <xs:enumeration value="HIGH_LOSS_MODEL"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="LTENR_CHANNEL_CHARACTERISTICS">
+    <xs:attribute name="CHANNEL_CHARACTERISTICS" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NO_PATHLOSS"/>
+          <xs:enumeration value="PATHLOSS_ONLY"/>
+          <xs:enumeration value="PATHLOSS_WITH_SHADOWFADING"/>
+          <xs:enumeration value="PATHLOSS_WITH_SHADOWFADING_O2ILOSS"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="LOS_MODE" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TR38_901_STANDARD"/>
+          <xs:enumeration value="USER_DEFINED"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="LOS_PROBABILITY" type="xs:double"/>
+  </xs:attributeGroup>  
+  
+  <xs:group name="LTE_NR_ELEMENT">
+    <xs:sequence>
+
+      <xs:element name="PDSCH_CONFIG" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attributeGroup ref ="LTENR_PDSCH_CONFIG"/>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="PUSCH_CONFIG" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attributeGroup ref ="LTENR_PUSCH_CONFIG"/>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="CSIREPORT_CONFIG" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="CQI_TABLE">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="TABLE1"/>
+                <xs:enumeration value="TABLE2"/>
+                <xs:enumeration value="TABLE3"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="PROPAGATION_MODEL" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attributeGroup ref ="LTENR_PROPAGATION_MODEL"/>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="CHANNEL_CHARACTERISTICS" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attributeGroup ref ="LTENR_CHANNEL_CHARACTERISTICS"/>
+        </xs:complexType>
+      </xs:element>
+      
+    </xs:sequence>
+  </xs:group>
+  
+</xs:schema>
